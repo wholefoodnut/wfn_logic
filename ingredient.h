@@ -1,7 +1,6 @@
 // Kristian John M. Estrabillo
-// Ingredient Class
+// Ingredient Class header
 // - Contains ingredient name and macro type
-
 
 #ifndef INGREDIENT_H
 #define INGREDIENT_H
@@ -12,7 +11,6 @@
 class Ingredient {
 
     protected:
-
      std::string name;  // name of the ingredient
      int macro;         // macro:   0 - undefined
                         //          1 - carb
@@ -20,16 +18,13 @@ class Ingredient {
                         //          3 - protein
     
     public:
-
-    // Exception handling classes
-     class OutOfRange{}; // thrown when macro is out of range. 
-
-    // Ingredient constructor and destructor
+     // Ingredient constructor and destructor
      Ingredient();
      Ingredient(std::string nme, int mac);
+     Ingredient(std::string nme, std::string mac);
      ~Ingredient();
 
-    // setters and getters
+     // setters and getters
      void setName(std::string nme);
      void setMacro(std::string mac);
 
