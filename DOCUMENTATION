@@ -1,0 +1,92 @@
+HEALTHY INGREDIENT SWAP v0.0.1
+
+Program files:
+INGREDIENT CLASS - ingredient.h, ingregient.cpp
+SWAP PROGRAM - swap.cpp
+
+TO COMPILE:
+    $: g++ -o SWAP ingredient.cpp swap.cpp
+TO RUN:
+    $: ./SWAP
+
+--------------------------------------------------------------------------------------------------------------------------
+The Healthy Ingredient Swap lets you put in your ingredients of a recipe in a formatted text file
+with their respective macros, along with a list of healthy alternative ingredients with their respective
+macros.
+
+INGREDIENT FILE FORMAT:
+    ingredient_name <macro_number>
+ * Ingredient name must be a single string of characters, it cannot have any spaces.
+ * Macro number must be an integer from 0-3 inclusive.
+    0: unknown
+    1: carb
+    2: fat 
+    3: protein
+
+EXAMPLE:
+
+beef_melt.txt
+
+    white_bread     1
+    butter          2
+    american_cheese 2
+    roast_beef      3
+
+alternatives.dat
+
+    whole_wheat 1
+    coconut_oil 2
+    goat_cheese 2
+    tuna_salad 3
+
+HOW TO USE HEALTHY INGREDIENT SWAP PROGRAM v0.0.1
+
+1. Compile program and run.
+
+2. The following prompt will appear:
+        Enter file name of healthy ingredients list.
+
+3. Enter the name of the formatted file with your list of healthy alternative ingredients.
+    ex:     > alternatives.txt
+    !!! If the file is not in the same directory, program will error and quit.
+
+4. The following prompt will appear:
+        Enter file name of your recipe.
+
+5. Enter the name of the formatted file with your list of ingredients in your recipe.
+    ex:     > beef_melt.txt
+    !!! If the file is not in the same directory, program will error and quit.
+
+6. The program will print out your list of alternative ingredients and recipe ingredients.
+        -- Alternative Ingredients --
+        1. whole_wheat         Macro:   carb
+        2. coconut_oil         Macro:   fat
+        3. goat_cheese         Macro:   fat
+        4. tuna_salad          Macro:   protein
+        
+        -- Recipe --
+        1. white_bread         Macro:   carb
+        2. butter              Macro:   fat
+        3. american_cheese     Macro:   fat
+        4. roast_beef          Macro:   protein
+
+7. The following prompt will appear:
+        What ingredient in your recipe do you want to swap?
+
+8. Enter the name of the ingredient you want to swap.
+    ex:     > butter
+
+9. The program will now ask you if you want to swap the ingredient with the an alternative of the same macro.
+   Type 'y' or 'n' to answer.
+   If you go through all ingredients of the same macro, the recipe will remain unchanged.
+    ex: Do you want to swap butter with coconut_oil? (y/n)
+            > n 
+        Do you want to swap butter with goat_cheese? (y/n)
+            > y
+
+10. The program will now print out the new recipe and exit.
+        -- NEW RECIPE --
+        1. white_bread       Macro: carb
+        2. goat_cheese       Macro: fat
+        3. american_cheese   Macro: fat
+        4. roast_beef        Macro: protein

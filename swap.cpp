@@ -31,10 +31,58 @@ bool readRecipe(std::string filename, std::vector<Ingredient> &ingredients)
 
 void display(std::vector<Ingredient> &list)
 {
-    for (int i = 0; i < list.size(); i++)
+    int macro;
+    try
     {
-        std::cout << i + 1 << ". " << std::setw(20) << std::left << list[i].getName() << "Macro:\t" << list[i].getMacro() << std::endl;
+        for (int i = 0; i < list.size(); i++)
+        {
+            std::cout << i + 1 << ". " << std::setw(20) << std::left << list[i].getName() << "Macro:\t";
+            macro = list[i].getMacro();
+
+            if (macro == 1) std::cout << "carb";
+            else if (macro == 2) std::cout << "fat";
+            else if (macro == 3) std::cout << "protein";
+            else if (macro == 0) std::cout << "undefined";
+            else throw "NO_MACRO";
+
+            std::cout << std::endl;
+        }
     }
+    catch (std::string err) { std::cerr << "ERROR: " << err << " caught\n"; }
+}
+
+void swap(std::vector<Ingredient> &recipe, std::vector<Ingredient> &healthy)
+{
+    std::string unhealthy;
+    int unhealthyIndex = 0;
+    bool found = false;
+    do {
+        std::cout << "What ingredient in your recipe do you want to swap?\n";
+        std::cin >> unhealthy;
+        
+        for (int i = 0; i < recipe.size(); i++) {
+            if (unhealthy == recipe[i].getName()) {
+                found = true;
+                unhealthyIndex = i;
+            }
+        }
+        if (!found) std::cout << unhealthy << " not found in recipe.\n";
+    } while (!found);
+
+    char choice;
+    for (int i = 0; i < healthy.size(); i++) {
+        if (recipe[unhealthyIndex].getMacro() == healthy[i].getMacro()) {
+            std::cout << "Do you want to swap " << recipe[unhealthyIndex].getName() << " with " << healthy[i].getName() << "? (y/n)\n";
+            std::cin >> choice;
+
+            if (choice == 'y' || choice == 'Y') {
+                recipe[unhealthyIndex].setName(healthy[i].getName());
+                recipe[unhealthyIndex].setMacro(healthy[i].getMacro());
+                return;
+            }
+        }
+    }
+    return;
 }
 
 int main()
@@ -45,12 +93,12 @@ int main()
     std::string filename;
 
     try {
-        std::cout << "Enter filename of healthy ingredients list.\n";
+        std::cout << "Enter the file name of the healthy alternative ingredients list.\n";
         std::cin >> filename;
 
         if (!readRecipe(filename, healthyIngredients)) throw "FileError";
         
-        std::cout << "Enter filename containing formatted recipe.\n";
+        std::cout << "Enter the file name of your recipe.\n";
         std::cin >> filename;
 
         if (!readRecipe(filename, recipe)) throw "FileError";
@@ -59,11 +107,21 @@ int main()
     }
     catch (std::string) { std::cerr << "ERROR: Could not open file " << filename << std::endl; }
 
-    std::cout << "-- Healthy Ingredients --\n";
+    std::cout << "-- Alternative Ingredients --\n";
     display(healthyIngredients);
+
+    std::cout << std::endl;
 
     std::cout << "-- Recipe --\n";
     display(recipe);
+
+    swap(recipe, healthyIngredients);
+
+    std::cout << std::endl << "-- NEW RECIPE --\n";
+
+    display(recipe);
+    
+    std::cout << std::endl;
 
     return 0;
 }
