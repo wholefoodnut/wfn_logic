@@ -1,0 +1,6 @@
+lettuce_wrap    1
+coconut_oil     2
+olive_oil       2
+goat_cheese     2
+pesto           3
+date_spread     3
