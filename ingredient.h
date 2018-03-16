@@ -26,7 +26,7 @@ class Ingredient {
 
      // setters and getters
      void setName(std::string nme);
-     void setMacro(std::string mac);
+     void setMacro(int mac);
 
      std::string getName();
      int getMacro();
